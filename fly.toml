@@ -1,0 +1,29 @@
+app = "estacionamiento-laravel" # Nombre de la app para Fly.io
+kill_signal = "SIGINT"
+kill_timeout = 5
+primary_region = "iad" # Cambia esto a tu región más cercana (ej. mad, gru, eze, etc.)
+# Expone el puerto 8080 que usará el servidor web interno
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+  [services.ports]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+  [services.ports.tls_options]
+  [services.ports.http_options]
+    compress = true
+
+[build]
+  # Indica que debe usar el Dockerfile en la raíz
+  builder = "docker"
+
+[processes]
+  # Comando para iniciar el servidor web que ejecuta Laravel desde su carpeta 'public/'
+  app = "vendor/bin/heroku-php-apache2 Estacionamiento/public/"
+
+[env]
+  # Configuración de Entorno de Laravel
+  APP_ENV = "production"
+  APP_DEBUG = "false"
+  # Las variables de la DB se añadirán con flyctl mysql attach
