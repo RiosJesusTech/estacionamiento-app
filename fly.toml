@@ -30,7 +30,7 @@ primary_region = "iad"
     handlers = ["tls", "http"]
 
 [build]
-  builder = "docker"
+  builder = "heroku/buildpacks:20"
 
 [env]
   APP_ENV = "production"
