@@ -16,6 +16,7 @@ primary_region = "iad"
   # El puerto interno usado por el proceso "app"
   internal_port = 8080 
   protocol = "tcp"
+  processes = ["app"] # <--- ¡ESTA LÍNEA ES CLAVE!
   
   # Puerto 80 (HTTP) para redirigir a HTTPS
   [[services.ports]]
