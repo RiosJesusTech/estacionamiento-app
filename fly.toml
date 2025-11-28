@@ -1,34 +1,35 @@
 app = "estacionamiento-laravel" 
 kill_signal = "SIGINT"
 kill_timeout = 5
-primary_region = "iad" # Asegúrate de que esta región coincida con tu DB
+primary_region = "iad" 
 
 # ==========================================================
-# Sección de Servicios (EXPOSICIÓN DE PUERTO)
-# ESTA ES LA SECCIÓN QUE FALTA O ESTÁ DAÑADA EN TU ARCHIVO
+# Configuración de Procesos y Servicios
 # ==========================================================
+
+# Definición del proceso "app"
+[processes]
+  app = "vendor/bin/heroku-php-apache2 Estacionamiento/public/"
+
+# Servicio de escucha para el proceso "app"
 [[services]]
-  internal_port = 8080 # Puerto interno usado por heroku-php-apache2
+  # El puerto interno usado por el proceso "app"
+  internal_port = 8080 
   protocol = "tcp"
-
+  
+  # Puerto 80 (HTTP) para redirigir a HTTPS
   [[services.ports]]
     port = 80
     handlers = ["http"]
     force_https = true
 
+  # Puerto 443 (HTTPS)
   [[services.ports]]
     port = 443
     handlers = ["tls", "http"]
 
 [build]
   builder = "docker"
-
-# ==========================================================
-# Sección de Procesos (COMANDO DE INICIO)
-# ==========================================================
-[processes]
-  # El comando que corre Laravel y sirve la carpeta public
-  app = "vendor/bin/heroku-php-apache2 Estacionamiento/public/"
 
 [env]
   APP_ENV = "production"
