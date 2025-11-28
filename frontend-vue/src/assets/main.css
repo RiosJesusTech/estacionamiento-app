@@ -1,0 +1,82 @@
+/* src/assets/main.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+/* --- ESTILOS BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;  
+    /* Aplicar la transición a las propiedades de color para un cambio de tema suave */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* --- DEFINICIÓN DE TEMAS (VARIABLES CSS) --- */
+
+/* TEMA CLARO (Aplicado por defecto y cuando body tiene la clase .theme-light) */
+:root, .theme-light {
+    /* Colores primarios/texto */
+    --color-primary: #000000;         /* Negro fuerte */
+    --color-text: #333333;            /* Gris oscuro para el texto */
+
+    /* Fondos y superficies */
+    --color-background: #FFFFFF;      /* Fondo principal blanco */
+    --color-form-background: #f4f4f4; /* Fondo de formularios/tarjetas (gris claro) */
+    --color-secondary: #1e1e1e;       /* Gris oscuro para cajas traseras */
+
+    /* Botones y bordes */
+    --color-button-hover: #1e1e1e;    /* Hover de botón oscuro */
+    --color-button-text-hover: #FFFFFF; /* Texto de hover blanco */
+    --color-input-background: #FFFFFF; /* Fondo de input blanco */
+    --color-input-border: #ddd;       /* Borde de input gris claro */
+
+    /* Colores para espacios de estacionamiento */
+    --color-disponible: #27ae60;      /* Verde para disponible */
+    --color-ocupado: #e74c3c;         /* Rojo para ocupado */
+    --color-seleccionado: #f1c40f;    /* Amarillo para seleccionado */
+    --color-detectado: #3498db;       /* Azul para detectado */
+
+    /* Altura para el encabezado, compartida por ambos temas */
+    --altura-encabezado: 60px;
+}
+
+/* TEMA OSCURO (Aplicado cuando body tiene la clase .theme-dark) */
+.theme-dark {
+    /* Colores primarios/texto */
+    --color-primary: #FFFFFF;         /* Blanco para elementos principales */
+    --color-text: #E0E0E0;            /* Gris muy claro para el texto */
+
+    /* Fondos y superficies */
+    --color-background: #121212;      /* Fondo principal casi negro */
+    --color-form-background: #1e1e1e; /* Fondo de formularios/tarjetas (gris oscuro) */
+    --color-secondary: #000000;       /* Negro (usado en contraste) */
+
+    /* Botones y bordes */
+    --color-button-hover: #FFFFFF;    /* Hover de botón claro */
+    --color-button-text-hover: #121212; /* Texto de hover muy oscuro */
+    --color-input-background: #2b2b2b; /* Fondo de input gris oscuro */
+    --color-input-border: #444;       /* Borde de input gris oscuro */
+
+    /* Colores para espacios de estacionamiento (mismos para visibilidad) */
+    --color-disponible: #27ae60;      /* Verde para disponible */
+    --color-ocupado: #e74c3c;         /* Rojo para ocupado */
+    --color-seleccionado: #f1c40f;    /* Amarillo para seleccionado */
+    --color-detectado: #3498db;       /* Azul para detectado */
+}
+
+
+/* --- ESTILOS DE BODY --- */
+body {
+    /* Aplica los colores definidos en las variables del tema activo */
+    background-color: var(--color-background);
+    color: var(--color-text);
+    
+    /* Estilo de fondo global */
+    background-image: url('/Fondo_Index.jpg'); /* Debe estar en la carpeta 'public' */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
