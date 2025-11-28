@@ -1,36 +1,36 @@
-# Usa una imagen base con PHP/Composer, Node.js y Python preinstalados
-FROM heroku/heroku:20-build
+# Usa la imagen oficial de PHP 8.2
+FROM php:8.2-fpm-bullseye
 
-# Instalar dependencias adicionales de PHP para Laravel (MySQLi es crucial para MySQL)
+# Instalar Node.js, Python, Supervisor, y Nginx
 RUN apt-get update && apt-get install -y \
+    nginx \
+    supervisor \
+    git \
+    curl \
+    unzip \
     libxml2-dev \
     libzip-dev \
-    php-mysql \
-    php-zip \
-    && rm -rf /var/lib/apt/lists/*
+    libonig-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libpq-dev \
+    # ... (el resto de las dependencias que instalamos previamente)
+    
+# Continúa con la instalación de Node.js 20.x, Composer, etc...
+# ... (el resto de tu Dockerfile, con las extensiones ya corregidas)
 
-# Establece el directorio de trabajo (ROOT)
-WORKDIR /app
+# ==========================================================
+# PASO FINAL: Configurar Servidor Web y Supervisor
+# ==========================================================
 
-# Copia todo el código fuente del repositorio
-COPY . /app
+# Copiar archivos de configuración (DEBES CREAR ESTOS ARCHIVOS LOCALMENTE)
+COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+COPY nginx.conf /etc/nginx/sites-available/default
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default \
+    && rm /etc/nginx/sites-enabled/default
 
-# ---- PROCESO DE BUILD (Laravel y Vue.js) ----
-
-# 1. Instalar dependencias de Laravel (PHP)
-# Entra en la carpeta de Laravel
-WORKDIR /app/Estacionamiento
-RUN composer install --no-dev --optimize-autoloader
-
-# 2. Instalar y compilar el Frontend (Vue.js)
-# Entra en la carpeta de Vue
-WORKDIR /app/frontend-vue
-RUN npm install
-RUN npm run build
-
-# 3. Mover los assets compilados a la carpeta public de Laravel
-# Asumiendo que Vue.js compila a 'frontend-vue/dist'
-RUN cp -r /app/frontend-vue/dist/* /app/Estacionamiento/public/
+# Reemplazar el comando de inicio por Supervisor
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
 
 # 4. Configuración final de Laravel (asegurar permisos)
 WORKDIR /app/Estacionamiento
