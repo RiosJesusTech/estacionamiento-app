@@ -30,7 +30,7 @@ primary_region = "iad"
     handlers = ["tls", "http"]
 
 [build]
-  builder = "paketobuildpacks/builder:base"
+ 
 
 [env]
   APP_ENV = "production"
